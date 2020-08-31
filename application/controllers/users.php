@@ -7,8 +7,8 @@ class Users extends CI_Controller
         public function new()
         {
                 $this->load->library("form_validation");
-                $this->form_validation->set_rules("Name", "name", "required");
-                $this->form_validation->set_rules("Password", "password", "required");
+                $this->form_validation->set_rules("name", "name", "required");
+                $this->form_validation->set_rules("password", "password", "required");
                 $success = $this->form_validation->run();
                 if ($success) {
                         $user = array(
@@ -17,11 +17,12 @@ class Users extends CI_Controller
                         );
                         $this->load->model("users_model");
                         $this->users_model->Save($user);
-                        $this->load->view('users/new');
+                        $this->session->set_flashdata("success", "Cadastrado com Sucesso");
+                        redirect('/');
                 } else {
                         $this->session->set_flashdata("danger", "Preencha os campos");
                         redirect('/');
-                        // $this->load->view('/');  
+                       
                 }
         }
 }
